@@ -1,0 +1,30 @@
+[package]
+name = "wechat-long-pic"
+version = "1.0.0"
+description = "Compose vertical long pictures with a centered thumbnail"
+edition = "2021"
+rust-version = "1.77"
+
+[lib]
+name = "wechat_long_pic_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+tauri-plugin-fs = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "gif", "bmp", "tiff", "webp"] }
+anyhow = "1"
+thiserror = "1"
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true
