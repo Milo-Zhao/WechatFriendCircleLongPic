@@ -17,8 +17,8 @@
   $: isNonSquare = item.width !== item.height;
 
   function toggleStar() {
-    items.update(($i) =>
-      $i.map((it) => {
+    items.update((list) =>
+      list.map((it) => {
         if (it.url === item.url) {
           const next = !it.isThumbnail;
           return { ...it, isThumbnail: next };

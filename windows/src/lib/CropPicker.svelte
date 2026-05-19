@@ -64,8 +64,8 @@
   }
 
   function done() {
-    items.update(($i) =>
-      $i.map((it) =>
+    items.update((list) =>
+      list.map((it) =>
         it.url === item.url ? { ...it, customCropOrigin: origin } : it,
       ),
     );
@@ -73,8 +73,8 @@
   }
 
   function clearCustom() {
-    items.update(($i) =>
-      $i.map((it) =>
+    items.update((list) =>
+      list.map((it) =>
         it.url === item.url ? { ...it, customCropOrigin: null } : it,
       ),
     );

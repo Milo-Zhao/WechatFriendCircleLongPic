@@ -8,7 +8,7 @@ Three native ports of the same app, sharing one algorithm:
 |---|---|---|---|
 | **macOS** | SwiftUI + CoreGraphics | Built & runs | ~1.3 MB `.app` |
 | **iOS** | SwiftUI + UIKit + PhotosUI | Builds for simulator | – |
-| **Windows** | Tauri 2 + Svelte + Rust + WebView2 | Source ready, CI-built | ~10 MB MSI |
+| **Windows** | Tauri 2 + Svelte + Rust + WebView2 | Built & runs | ~2.1 MB MSI |
 
 Inspired by [paul-zz/WechatLongPic](https://github.com/paul-zz/WechatLongPic), originally a PyQt5 tool.
 
@@ -94,7 +94,7 @@ Source: [iOS/Sources/](iOS/Sources/). Project spec: [project.yml](project.yml).
 
 ## Windows
 
-Tauri 2 desktop app with a Svelte UI and a Rust backend (using the [`image`](https://crates.io/crates/image) crate). ~10 MB MSI installer, ~60–100 MB idle RAM.
+Tauri 2 desktop app with a Svelte UI and a Rust backend (using the [`image`](https://crates.io/crates/image) crate). ~2.1 MB MSI installer (4.3 MB extracted exe), ~60–100 MB idle RAM. Verified built and launches on Windows 11 with Rust 1.95 + MSVC.
 
 **On a Windows machine:**
 
@@ -142,7 +142,7 @@ WechatFriendCircleLongPic/
 
 - The macOS app has been built and exercised end-to-end.
 - The iOS app builds for simulator; on a real device you'll need a `DEVELOPMENT_TEAM` in [project.yml](project.yml).
-- The Windows app's source is complete but **unverified** — written on macOS, where Tauri's Windows target can't be built locally. The included GitHub Actions workflow is the recommended way to produce the MSI.
+- The Windows app has been built locally on Windows 11 (Rust 1.95, MSVC, Node 20+) and launches successfully. The included GitHub Actions workflow remains the easiest way to produce the MSI from a non-Windows host.
 - The "center crop" used as the WeChat preview is documented WeChat behavior as of 2024–2025 but is, of course, ultimately at the mercy of whatever crop heuristic WeChat applies. If they change it, the trick stops working.
 
 ## Credit

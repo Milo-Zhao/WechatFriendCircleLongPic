@@ -1,5 +1,5 @@
 use crate::{open_image, AppError, ImageInput};
-use image::{imageops::FilterType, GenericImage, GenericImageView, ImageBuffer, Rgba, RgbaImage};
+use image::{imageops::FilterType, GenericImage, ImageBuffer, Rgba, RgbaImage};
 
 /// Stitch the items vertically at `output_width`, place the designated
 /// thumbnail as a centered W×W square, and pad the bottom (or top) with

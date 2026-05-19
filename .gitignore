@@ -39,3 +39,6 @@ windows/src-tauri/icons/
 .vscode/
 .idea/
 *.swp
+
+# Claude Code workspace
+.claude/

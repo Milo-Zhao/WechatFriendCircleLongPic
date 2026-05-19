@@ -40,7 +40,7 @@
         console.error("get_image_info failed", p, e);
       }
     }
-    items.update(($i) => [...$i, ...additions]);
+    items.update((list) => [...list, ...additions]);
   }
 
   function dragStart(i: number) { dragIndex = i; }
@@ -50,8 +50,8 @@
   }
   function drop(i: number) {
     if (dragIndex === null || dragIndex === i) { dragIndex = null; return; }
-    items.update(($i) => {
-      const next = $i.slice();
+    items.update((list) => {
+      const next = list.slice();
       const [moved] = next.splice(dragIndex!, 1);
       next.splice(i, 0, moved);
       return next;
@@ -60,8 +60,8 @@
   }
 
   function remove(i: number) {
-    items.update(($i) => {
-      const next = $i.slice();
+    items.update((list) => {
+      const next = list.slice();
       const wasThumb = next[i].isThumbnail;
       next.splice(i, 1);
       if (wasThumb) userPickedThumbnail.set(false);
