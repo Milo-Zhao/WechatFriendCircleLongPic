@@ -10,9 +10,9 @@ targets:
     type: application
     platform: iOS
     sources:
-      - path: iOS/Sources
-      - path: Sources/WechatLongPicGUI/Shared
-      - path: iOS/Assets.xcassets
+      - path: Sources
+      - path: Shared
+      - path: Assets.xcassets
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: studio.upperocean.wechatlongpic

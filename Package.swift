@@ -7,7 +7,7 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "WechatLongPicGUI",
-            path: "Sources/WechatLongPicGUI"
+            path: "macOS"
         )
     ]
 )
