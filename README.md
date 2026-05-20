@@ -69,7 +69,7 @@ open build/WeChatLongPic.app    # pre-built bundle (after running the bundling s
 
 Requires macOS 13+ and Swift 5.9+ (Xcode 15 or Command Line Tools).
 
-Bundled `.app` is ~1.3 MB, ad-hoc signed. Source: [Sources/WechatLongPicGUI/](Sources/WechatLongPicGUI/). Shared cross-platform logic lives in [Sources/WechatLongPicGUI/Shared/](Sources/WechatLongPicGUI/Shared/).
+Bundled `.app` is ~1.3 MB, ad-hoc signed. Source: [macOS/](macOS/). Shared cross-platform logic lives in [macOS/Shared/](macOS/Shared/).
 
 ---
 
@@ -78,6 +78,7 @@ Bundled `.app` is ~1.3 MB, ad-hoc signed. Source: [Sources/WechatLongPicGUI/](So
 Native SwiftUI app generated via XcodeGen.
 
 ```bash
+cd iOS
 xcodegen generate
 xcodebuild -project WeChatLongPicIOS.xcodeproj -scheme WeChatLongPic \
   -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
@@ -88,7 +89,7 @@ open WeChatLongPicIOS.xcodeproj
 
 Requires Xcode 15+, iOS 17+ deployment target. Uses `PhotosPicker` for input and `PHAssetChangeRequest` to save the composed long pic into the Photos library.
 
-Source: [iOS/Sources/](iOS/Sources/). Project spec: [project.yml](project.yml).
+Source: [iOS/Sources/](iOS/Sources/). Project spec: [iOS/project.yml](iOS/project.yml).
 
 ---
 
@@ -117,18 +118,25 @@ Source: [windows/](windows/). Per-platform notes: [windows/README.md](windows/RE
 ```
 WechatFriendCircleLongPic/
 ├── Package.swift                    macOS Swift Package
-├── project.yml                      iOS Xcode project (XcodeGen)
 ├── README.md                        ← you are here
 ├── icon.png                         shared 1024×1024 icon source
-├── Sources/WechatLongPicGUI/
-│   ├── App.swift, ContentView.swift, CropPickerView.swift, IconGenerator.swift
-│   └── Shared/                      cross-platform: composer, optimizer, model
+├── macOS/                           macOS-specific SwiftUI sources
+│   ├── App.swift
+│   ├── AppModel.swift
+│   ├── ContentView.swift
+│   ├── ImageRow.swift
+│   ├── CropPickerView.swift
+│   ├── IconGenerator.swift
+│   └── Shared/                      cross-platform Swift (mirrored in iOS/Shared/)
 │       ├── ImageProcessor.swift     compose() — stitch + center the thumbnail
 │       ├── AutoArrange.swift        recommend() — subset-sum optimizer
-│       ├── ImageItem.swift          model, platform-typealias preview
+│       ├── ImageItem.swift          observable model + thumbnail preview
 │       └── PlatformImage.swift      NSImage/UIImage typealias
-├── iOS/Sources/                     iOS-specific App, ContentView, CropPicker, model
-├── iOS/Assets.xcassets/             iOS app icon + accent color
+├── iOS/                             iOS-specific SwiftUI sources
+│   ├── project.yml                  XcodeGen spec (run xcodegen from iOS/)
+│   ├── Assets.xcassets/             app icon + accent color
+│   ├── Sources/                     iOS-specific App, AppModel, ContentView, …
+│   └── Shared/                      cross-platform Swift (mirrored from macOS/Shared/)
 ├── windows/
 │   ├── src/                         Svelte 4 + TypeScript UI
 │   └── src-tauri/src/               Rust IPC commands + image work
@@ -141,7 +149,7 @@ WechatFriendCircleLongPic/
 ## Status & known gaps
 
 - The macOS app has been built and exercised end-to-end.
-- The iOS app builds for simulator; on a real device you'll need a `DEVELOPMENT_TEAM` in [project.yml](project.yml).
+- The iOS app builds for simulator; on a real device you'll need a `DEVELOPMENT_TEAM` in [iOS/project.yml](iOS/project.yml).
 - The Windows app has been built locally on Windows 11 (Rust 1.95, MSVC, Node 20+) and launches successfully. The included GitHub Actions workflow remains the easiest way to produce the MSI from a non-Windows host.
 - The "center crop" used as the WeChat preview is documented WeChat behavior as of 2024–2025 but is, of course, ultimately at the mercy of whatever crop heuristic WeChat applies. If they change it, the trick stops working.
 
